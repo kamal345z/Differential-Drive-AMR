@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="Diff_Bot">
+   
+    <xacro:arg name="mesh_path" default="/tmp"/>
+    <xacro:property name="mesh_path" value="$(arg mesh_path)"/>
+    
+    <xacro:include filename="inertial.xacro"/>
+    <xacro:include filename="materials.xacro"/>
+
+    <!-- ROS Control -->
+    <xacro:include filename="ros2_control.xacro"/>
+
+    <!-- Gazebo Plugins -->
+    <xacro:include filename="gazebo.xacro"/>
+
+<!-- Whole bot -->
+    <xacro:include filename="body.urdf.xacro"/>
+
+
+</robot>

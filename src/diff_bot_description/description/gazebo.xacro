@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+ <!-- Required Gazebo system plugins -->
+  <gazebo>
+    <plugin filename="ignition-gazebo-sensors-system"
+            name="ignition::gazebo::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+  </gazebo>
+
+  <!-- 1.Diff Drive Plugin (system plugins)-->
+  <gazebo>
+    <plugin filename="ignition-gazebo-diff-drive-system"
+            name="ignition::gazebo::systems::DiffDrive">
+      <left_joint>left_wheel_joint</left_joint>
+      <right_joint>right_wheel_joint</right_joint>
+      <wheel_separation>0.434</wheel_separation>
+      <wheel_radius>0.035</wheel_radius>
+      <odom_publish_frequency>10</odom_publish_frequency>
+      <topic>cmd_vel</topic>
+      <odom_topic>odom</odom_topic>
+      <tf_topic>tf</tf_topic>
+      <frame_id>odom</frame_id>
+      <child_frame_id>base_link</child_frame_id>
+    </plugin>
+  </gazebo>
+
+  <!-- 2.Joint State Publisher Plugin -->
+  <gazebo>
+    <plugin filename="ignition-gazebo-joint-state-publisher-system"
+            name="ignition::gazebo::systems::JointStatePublisher">
+    </plugin>
+  </gazebo>
+
+  <!-- 1.LiDAR Sensor (sensor plugins) -->
+  
+  <!-- <gazebo reference="lidar_link">  
+      <sensor name="lidar_sensor" type="ray">
+
+        <pose>0 0 0 0 0 0</pose>
+
+        <topic>/scan</topic>
+
+        <update_rate>10</update_rate>
+
+        <lidar>
+          <scan>
+            <horizontal>
+              <samples>360</samples>
+              <resolution>1</resolution>
+              <min_angle>-${pi}</min_angle>
+              <max_angle>${pi}</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.12</min>
+            <max>6.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </lidar>
+
+        <always_on>1</always_on>
+        <visualize>false</visualize>
+
+      </sensor>
+    </gazebo>
+  -->
+
+  <gazebo reference="lidar_link">
+    <sensor name="lidar" type="gpu_lidar">
+    
+      <always_on>true</always_on>
+      <visualize>false</visualize>
+      <topic>/scan</topic>
+      <pose>0 0 0 0 0 0</pose>
+      <update_rate>10</update_rate>
+      <gz_frame_id>lidar_link</gz_frame_id>
+      <lidar>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1.0</resolution>
+            <min_angle>${-pi}</min_angle>
+            <max_angle>${pi}</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>1</samples>
+            <resolution>0.01</resolution>
+            <min_angle>0</min_angle>
+            <max_angle>0</max_angle>
+          </vertical>
+        </scan>
+        <range>
+          <min>0.2</min>
+          <max>8.0</max>
+          <resolution>0.02</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </lidar>
+    </sensor>
+  </gazebo>
+  
+</robot>

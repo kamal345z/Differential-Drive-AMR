@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- <xacro:include filename="inertial.xacro"/>
+  <xacro:include filename="materials.xacro"/> -->
+
+  <!-- Variables -->
+  <xacro:property name="lidar_height" value="0.042" />
+  <xacro:property name="lidar_radius" value="0.036" />
+  <!-- <xacro:property name="mesh_file_lidar" value="${mesh_path}/description/meshes/lidar.stl" /> -->
+  <xacro:macro name="lidar" params="mesh_file_lidar">
+
+    <!-- Links -->
+    <joint name="lidar_joint" type="fixed">
+      <origin xyz="0 0 ${lidar_height}"/>
+      <parent link="base_plate"/>
+      <child link="lidar_link"/>
+    </joint>
+
+    <link name="lidar_link">
+      <visual>
+        <origin xyz="0.5079 0 -0.09"/>
+        <geometry>
+          <mesh filename="file://${mesh_file_lidar}" />
+        </geometry>
+        <material name="red">
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0.5079 0 0"/>
+        <geometry>
+          <cylinder length="${lidar_height}" radius="${lidar_radius}"/>
+        </geometry>
+      </collision>
+      <xacro:inertial_cylinder mass="0.1" radius="${lidar_radius}" length="${lidar_height}">
+        <origin xyz="0.5079 0 -0.0"/>
+      </xacro:inertial_cylinder>
+    </link>
+      
+  </xacro:macro>
+</robot>

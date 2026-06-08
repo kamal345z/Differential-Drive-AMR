@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Variables -->
+  <xacro:property name="base_length" value="0.498"/>
+  <xacro:property name="base_width" value="0.4"/>
+  <xacro:property name="base_height" value="0.04"/>
+  <xacro:property name="wheel_radius" value="0.035" />
+  <xacro:property name="wheel_width" value="0.04" />
+  <xacro:property name="wheel_gap" value="0.009" />
+  <xacro:property name="mesh_file_chassis" value="${mesh_path}/description/meshes/chassis.stl"/>
+  
+     <!-- Chassis -->
+  <xacro:include filename="base.xacro"/>
+  <xacro:base_link mesh_file_chassis="${mesh_file_chassis}"/>
+    <!-- Caster -->
+  <xacro:include filename="caster.xacro"/>
+    <!-- Wheels -->
+  <xacro:include filename="wheels.xacro"/>
+    <!-- LIDAR -->
+  <xacro:include filename="lidar.xacro"/>
+  <!-- <xacro:include filename="inertial.xacro"/>
+  <xacro:include filename="materials.xacro"/> -->
+
+  
+
+  <xacro:lidar mesh_file_lidar="${mesh_path}/description/meshes/lidar.stl"/>
+
+    <xacro:caster prefix="top_left" parent="base_plate" x="${base_length/2 + 0.23}" y="${base_width/2 - 0.012 }" z="${-caster_gap}" z_sign="-1"/>
+    <xacro:caster prefix="top_right" parent="base_plate" x="${base_length/2 + 0.23}" y="-${base_width/2 - 0.012 }" z="${-caster_gap}" z_sign="1"/>
+
+   <xacro:wheel prefix="left_wheel" 
+                 parent="base_plate" x="${base_length/2 - 0.248}" 
+                 y="-0.004" 
+                 z="0.0" 
+                 z_sign="1" 
+                 rx="3.141" ry="0" rz="0"
+                 p="1"
+                 mesh_file_wheel="${mesh_path}/description/meshes/wheel.stl"/>
+
+
+    <xacro:wheel prefix="right_wheel" 
+                 parent="base_plate" x="${base_length/2 - 0.248}" 
+                 y="0.0" 
+                 z="0.0" z_sign="-1" 
+                 rx="0" ry="0" rz="0.0"
+                 p="-1"
+                 mesh_file_wheel="${mesh_path}/description/meshes/wheel.stl"/>
+
+
+</robot>

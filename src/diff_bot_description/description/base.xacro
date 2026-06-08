@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="Diff_Bot_Base">
+
+  <!-- Includes (outside macro) -->
+  <!-- <xacro:include filename="inertial.xacro"/>
+  <xacro:include filename="materials.xacro"/> -->
+
+  <!-- Variables -->
+  <xacro:property name="base_length" value="0.498"/>
+  <xacro:property name="base_width" value="0.4"/>
+  <xacro:property name="base_height" value="0.04"/>
+  <xacro:property name="top_length" value="0.246"/>
+  <xacro:property name="top_width" value="0.361"/>
+  <xacro:property name="top_height" value="0.03"/>
+  <xacro:property name="clearance" value="0.05"/>
+  <xacro:property name="mesh_file_chassis" value="${mesh_path}/description/meshes/chassis.stl"/>
+
+  <xacro:macro name="base_link" params="mesh_file_chassis">
+
+    <!-- Base Link -->
+    <link name="base_link"/>
+
+    <!-- Base Plate Joint -->
+    <joint name="base_joint" type="fixed">
+      <origin xyz="0.0 0.0 ${clearance + base_height + 0.01}"/>
+      <parent link="base_link"/>
+      <child link="base_plate"/>
+    </joint>
+
+    <!-- Base Plate Link -->
+    <link name="base_plate">
+      <visual>
+        <origin xyz="0.0 0.0 -0.02"/>
+        <geometry>
+          <mesh filename="file://${mesh_file_chassis}"/>
+        </geometry>
+        <material name="blue"/>
+      </visual>
+      <collision>
+        <origin xyz="0.25 0.0 0.0"/>
+        <geometry>
+          <box size="${base_length} ${base_width} ${base_height}"/>
+        </geometry>
+      </collision>
+      <xacro:inertial_box mass="1.0" x="${base_length}" y="${base_width}" z="${base_height}">
+        <origin xyz="0.25 0.0 0.0"/>
+      </xacro:inertial_box>
+    </link>
+
+    <!-- Gazebo reference -->
+    <gazebo reference="base_plate">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+
+  </xacro:macro>  <!-- ← this was missing -->
+
+</robot>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="Diff_Bot_Base">
+  <! Variables -->
+  <!-- <xacro:property name="base_length" value="0.498"/>
+  <xacro:property name="base_width" value="0.4"/>
+  <xacro:property name="base_height" value="0.04"/>
+  <xacro:property name="top_length" value="0.246"/>
+  <xacro:property name="top_width" value="0.361"/>
+  <xacro:property name="top_height" value="0.03"/>
+  <xacro:property name="clearance" value="0.05"/>
+  <xacro:property name="mesh_file_chassis" value="diff_bot_description/description/meshes/chassis.stl"/>
+
+  <xacro:macro name="base_link" params =" mesh_file_chassis">
+
+  <xacro:include filename="inertial.xacro"/>
+  <xacro:include filename="materials.xacro"/>
+
+  <! Base Link -->
+  <!-- <link name="base_link"/>
+
+  <! Base Plate -->
+  <!-- <joint name="base_joint" type="fixed">
+    <origin xyz="0.0 0.0 ${clearance + base_height + 0.01}"/>  <! 1cm provided for no clipping -->
+    <!-- <parent link="base_link"/>
+    <child link="base_plate"/>
+
+  </joint>
+
+  <link name="base_plate">
+
+    <visual>
+      <origin xyz="0.0 0.0 -${base_height/2}"/>
+      <geometry>
+        <mesh filename="package://${mesh_file_chassis}" />
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin xyz="0.25 0.0 0.0"/>
+      <geometry>
+        <box size="${base_length} ${base_width} ${base_height}"/>
+      </geometry>
+    </collision>
+    <xacro:inertial_box mass="1.0" x="${base_length}" y="${base_width}" z="${base_height}">
+      <origin xyz="0.25 0.0 0.0"/>
+    </xacro:inertial_box>
+  </link> --> 
+
+<!-- 
+</robot> -->
+ 
+
+
+
+

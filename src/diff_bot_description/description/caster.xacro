@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- <xacro:include filename="materials.xacro"/>
+    <xacro:include filename="inertial.xacro"/> -->
+    <!-- Variables -->
+    <xacro:property name="caster_radius" value="0.02" />
+    <xacro:property name="caster_gap" value="0.055" />
+  
+    <!-- Caster Macro (sphere) -->
+    <xacro:macro name="caster" params="prefix parent x y z z_sign">
+        <joint name="${prefix}_joint" type="fixed">
+            <parent link="${parent}"></parent>
+            <child link="${prefix}_caster"></child>
+            <origin xyz="${x} ${y} ${z}" rpy="0 0 0" />
+            <axis xyz="0 1 0" />
+        </joint>
+
+        <link name="${prefix}_caster">
+            <visual>
+                <geometry>
+                    <sphere radius="${caster_radius}"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+
+            <collision>
+                <geometry>
+                    <sphere radius="${caster_radius}"/>
+                </geometry>
+            </collision>
+
+            <xacro:inertial_sphere mass="0.1" radius="${caster_radius}">
+             <origin xyz="0 0 0"/>
+            </xacro:inertial_sphere>
+        </link>
+
+        <!-- Gazebo reference -->
+        <gazebo reference="${prefix}_caster">
+            <material>Gazebo/Black</material>
+            <mu1>0.0</mu1>   <!-- zero friction for caster -->
+            <mu2>0.0</mu2>
+            <kp>1000000.0</kp>
+            <kd>1.0</kd>
+        </gazebo>
+
+    </xacro:macro>
+
+    <!-- Casters (two at the bottom) -->
+    <!-- <xacro:caster prefix="top_left" parent="base_plate" x="${base_length/2 - 0.01}" y="${base_width/2 - 0.01 }" z="${-caster_gap}" z_sign="-1"/>
+    <xacro:caster prefix="top_right" parent="base_plate" x="${base_length/2 - 0.01}" y="-${base_width/2 - 0.01 }" z="${-caster_gap}" z_sign="1"/> -->
+</robot>    

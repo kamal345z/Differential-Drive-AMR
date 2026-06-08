@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="3">
+
+  <name>rs_warehouse</name>
+  <version>0.0.1</version>
+
+  <description>Warehouse world package</description>
+
+  <maintainer email="ka9865490@gmail.com">kamal</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+</package>
